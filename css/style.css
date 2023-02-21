@@ -1,0 +1,12 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    scroll-behavior: smooth;
+    background: rgb(57, 109, 165);
+}
+
+h1 {
+    color: rgb(153, 204, 255);
+    margin-top: 5%;
+    text-align: center;
+}
