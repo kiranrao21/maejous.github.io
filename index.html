@@ -18,16 +18,223 @@
         <link rel="stylesheet" href="css/stylesheets/style.css">
         <link rel="stylesheet" href="css/stylesheets/bootstrap.min.css">
     
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
         <!-- Update logo -->
         <link rel="shortcut icon" href="" type="image/x-icon">
         <link rel="icon" href="" type="image/x-icon">
         <link rel="apple-touch-icon" href="">
+
+        <script>
+
+    function changeBtnColor(button){
+        document.getElementById(button).style.background="#41c0f1";
+        document.getElementById(button).style.color="#fff";
+    }
+
+    var opt_obj={}
+
+    function disableBtn(location){
+    opt_obj.clubLocation = location
+    const buttons = document.querySelectorAll('.btn1');
+    buttons.forEach(button => {
+        buttons.forEach(btn => {
+        if (btn !== button) {
+            btn.disabled = true;
+        }
+        });
+    });
+    }
+
+    function sendPostAJAX(url,body,onsuccess,onerror){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            if (xmlhttp.status == 200) {
+                onsuccess(JSON.parse(xmlhttp.responseText))
+                console.log(JSON.parse(xmlhttp.responseText))
+            }
+            else if (xmlhttp.status == 400) {
+                onerror(xmlhttp.response)
+            }
+            else {
+                alert(xmlhttp.responseText);
+            }
+            }
+        };
+        xmlhttp.open("POST",url,true);
+        // xmlhttp.setRequestHeader('Content-Type','application/json');
+        xmlhttp.send(body);
+    }
+
+    function submitWS(input) {
+        var googleSheetAPI ="https://script.google.com/macros/s/AKfycby3cjJymfSPmAus83h_GtbIpHiPWhA_uSSSzl3Yzn3GjS6ljLT5a0kNYGIyh8qBAg7Nww/exec"
+
+        var name = document.getElementById("name").value
+        var phoneNumber = document.getElementById("phoneNumber").value
+        var icNumber = document.getElementById("icNumber").value
+    
+        var uniq = (new Date()).getTime();
+
+        let ObjEmail={
+            "time_create":new Date(),
+            "name" : name,
+            "phoneNumber" : phoneNumber,
+            "icNumber" : icNumber,
+            "location":opt_obj.clubLocation,
+            "id":uniq,
+        }
+
+        var form_data = new FormData();
+        for(var key in ObjEmail){
+            form_data.append(key, ObjEmail[key]);
+        }
+
+        console.log(form_data)
+
+        if(ObjEmail.name){
+            sendPostAJAX(googleSheetAPI, form_data,
+                function(res){
+                    // console.log('res: '+JSON.stringify(res))
+                    console.log("email inserted")
+                    if(opt_obj.clubLocation == "penang"){
+                        window.location.href="https://www.wa.link/16h9nu"
+                    }else if(opt_obj.clubLocation == "bangsar"){
+                        window.location.href="https://www.wa.link/lw2lw1"
+                    }
+
+                }, function(err){
+                    console.log('err: '+err);
+                })
+        }
+        else{
+            alert("Enter a valid email address");
+        }
+
+    }
+
+
+            // function submitWS(){
+            //     var name = document.getElementById("name").value
+            //     var phoneNumber = document.getElementById("phoneNumber").value
+            //     var icNumber = document.getElementById("icNumber").value
+            //     window.location.href="https://wa.me/0198908459?text=Hi%20"+name+",%20your%20reservation%20has%20been%20successfully%20saved"
+            //     // alert("https://wa.me/0198908459?text=Hi%20"+name)
+            // }
+        </script>
     </head>
     <body>
-        <header>
-
+        <header class="bg-template">
+            <div class="logo">
+                <a href="#"><img src="images/logo.png" alt="Bar Business Logo"></a>
+              </div>
+              <nav>
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Reservation</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </nav>
+              <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+              </div>
         </header>
-        <h1>Maejous Website Coming Soon</h1>
+        <section class="container-fluid bg-template">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="images/maejous_bangsar.jpeg" style="width:100%;">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section class="container-fluid mg-5-pct">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div>
+                            <h2>About Us</h2>
+                            <p>NEVER MISS THIS HOT CLUBBING SPOT IN BANGSAR</p>
+                            <p>Having not set foot in an exclusive lounge in a while, well start getting excited at the thought of hitting up the hottest nightspot in Bangsar neighborhood, Kuala Lumpur.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                    <img src="images/bar-female-bartender-alcoholic-beverages-wallpaper-preview.jpg" class="fullWidth about-us-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container-fluid bg-template pd-5-pct">
+            <div class="container">
+                <div class="col-12 form">
+                    <h2>Reservation</h2>
+
+                    <div class="mg-20">
+                        <p class="ft-bd">Please choose location</p>
+                        <button id="btn1" onclick="disableBtn('bangsar');changeBtnColor('btn1');" class="dg-btn btn1">Maejouzs Bangsar</button>
+                        <button id="btn2" onclick="disableBtn('penang');changeBtnColor('btn2');" class="dg-btn btn1">Maejouzs Penang</button>
+                    </div>
+
+                    <div class="mg-20">
+                        <p class="ft-bd">
+                            Are you exhibiting 2 or more symptoms as listed below?<br>
+                            Fever | Chills | Shivering | Body ache | Headache | Sore Throat | Nausea or Vomitting | Diarrhea | Fatigue | Runny Nose or Nasal congestion
+                        </p>
+                        <div class="selectbox1">
+                            <select name="cars" id="cars">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mg-20">
+                        <p class="ft-bd">
+                            Have you had close contact with any confirmed or suspected COVID-19 cases within the last 14 days?
+                        </p>
+                        <div class="selectbox1">
+                            <select name="cars" id="cars">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mg-20">
+                        <p class="ft-bd">
+                            Have you taken RTK test 24hrs prior entering (Maejouzs)?
+                        </p>
+                        <div class="selectbox1">
+                            <select name="cars" id="cars">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mg-20">
+                        <p class="ft-bd">Full Name</p>
+                        <input type="text" class="dg-input" placeholder="Name" id="name">
+                    </div>
+                    <div class="mg-20">
+                        <p class="ft-bd">NRIC Number</p>
+                        <input type="text" class="dg-input" placeholder="IC Number" id="phoneNumber">
+                    </div>
+                    <div class="mg-20">
+                        <p class="ft-bd">Phone Number</p>
+                        <input type="text" class="dg-input" placeholder="+60" id="icNumber">
+                    </div>
+                    <div class="mg-20">
+                        Please ensure all details are accurate before submitting
+                    </div>
+                    <a href="#" onclick="submitWS()" class="dg-submit">
+                        Submit
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- <h1>Maejous Website Coming Soon</h1> -->
         <footer>
 
         </footer>
