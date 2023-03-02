@@ -94,15 +94,19 @@
 
         console.log(form_data)
 
+        var ws_text_bangsar = "https://wa.me/198908459?text=Dear%20"+name+",%0a%0aWelcome%20to%20Maejouzs%20Bangsar%0a%0aThank%20you%20for%20providing%20your details.%20Please%20show%20this%20message%20to%20the%20security%20personnel%20for%20verification.%0a%0a*Your*%20*Unique*%20*Verification*%20*ID*%20*is*%20*:*%20*"+uniq+"*%0a%0aFollow%20us%20on%20to%20know%20our%20latest%20offer:%0aInstagram%20https://instagram.com/maejouzs_bangsar?igshid=YmMyMTA2M2Y="
+
+        var ws_text_penang = "https://wa.me/198908459?text=Dear%20"+name+",%0a%0aWelcome%20to%20Maejouzs%20Penang%0a%0aThank%20you%20for%20providing%20your details.%20Please%20show%20this%20message%20to%20the%20security%20personnel%20for%20verification.%0a%0a*Your*%20*Unique*%20*Verification*%20*ID*%20*is*%20*:*%20*"+uniq+"*%0a%0aFollow%20us%20on%20to%20know%20our%20latest%20offer:%0aInstagram%20https://instagram.com/maejouzspenang?igshid=YmMyMTA2M2Y="
+
         if(ObjEmail.name){
             sendPostAJAX(googleSheetAPI, form_data,
                 function(res){
                     // console.log('res: '+JSON.stringify(res))
                     console.log("email inserted")
                     if(opt_obj.clubLocation == "penang"){
-                        window.location.href="https://www.wa.link/16h9nu"
+                        window.location.href= ws_text_penang
                     }else if(opt_obj.clubLocation == "bangsar"){
-                        window.location.href="https://www.wa.link/lw2lw1"
+                        window.location.href = ws_text_bangsar
                     }
 
                 }, function(err){
