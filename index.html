@@ -29,6 +29,13 @@
 
         <script>
 
+    function showPopup(){
+        document.getElementById('overlay').style.display = "block";
+        document.getElementById('popup').style.display = "block";
+        document.getElementById('popup').style.transition = "opacity 1s ease 0s";
+        document.getElementById('popup').style.opacity = "1";
+    }
+
     function changeBtnColor(button){
         document.getElementById(button).style.background="#a4742c";
         document.getElementById(button).style.color="#fff";
@@ -98,6 +105,7 @@
 
         var ws_text_penang = "https://wa.me/1127644061?text=Dear%20"+name+",%0a%0aWelcome%20to%20Maejouzs%20Penang%0a%0aThank%20you%20for%20providing%20your details.%20Please%20show%20this%20message%20to%20the%20security%20personnel%20for%20verification.%0a%0a*Your*%20*Unique*%20*Verification*%20*ID*%20*is*%20*:*%20*"+uniq+"*%0a%0aFollow%20us%20on%20to%20know%20our%20latest%20offer:%0aInstagram%20https://instagram.com/maejouzspenang?igshid=YmMyMTA2M2Y="
 
+        showPopup()
         if(ObjEmail.name){
             sendPostAJAX(googleSheetAPI, form_data,
                 function(res){
@@ -223,7 +231,7 @@
                     <div class="mg-20">
                         Please ensure all details are accurate before submitting
                     </div>
-                    <a href="#" onclick="submitWS()" class="dg-submit">
+                    <a href="#" onclick="submitWS(); return false;" class="dg-submit">
                         Submit
                     </a>
                 </div>
@@ -233,5 +241,12 @@
         <footer>
 
         </footer>
+
+        <div class="overlay" id="overlay"></div>
+        <div class="popup" id="popup">
+            <img src="images/loading-gif.gif">
+            <div style="font-size: 2em;color: #fff;font-weight: bold;">Loading... Pls wait while we redirect you to Whatsapp</div>
+        </div>
+
     </body>
 </html>
