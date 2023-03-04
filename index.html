@@ -218,15 +218,15 @@
                     </div>
                     <div class="mg-20">
                         <p class="ft-bd">Full Name</p>
-                        <input type="text" class="dg-input" placeholder="Name" id="name">
+                        <input type="text" class="dg-input" placeholder="Name" id="name" />
                     </div>
                     <div class="mg-20">
                         <p class="ft-bd">NRIC Number</p>
-                        <input type="text" class="dg-input" placeholder="IC Number" id="phoneNumber">
+                        <input type="text" class="dg-input" placeholder="IC Number" id="icNumber" />
                     </div>
                     <div class="mg-20">
                         <p class="ft-bd">Phone Number</p>
-                        <input type="text" class="dg-input" placeholder="+60" id="icNumber">
+                        <input type="text" class="dg-input" placeholder="+60" id="phoneNumber" />
                     </div>
                     <div class="mg-20">
                         Please ensure all details are accurate before submitting
@@ -248,5 +248,22 @@
             <div style="font-size: 2em;color: #fff;font-weight: bold;">Loading... Pls wait while we redirect you to Whatsapp</div>
         </div>
 
+        <script>
+            const phoneNumberInput = document.getElementById("phoneNumber");
+            phoneNumberInput.addEventListener("keydown", function(event) {
+                if (event.key !== "Backspace" && event.key !== "Delete" && event.key !== "Tab" && isNaN(parseInt(event.key))) {
+                    alert("Only numeric characters allowed!")
+                    event.preventDefault();
+                }
+            });
+
+            const ICInput = document.getElementById("icNumber");
+            ICInput.addEventListener("keydown", function(event) {
+                if (event.key !== "Backspace" && event.key !== "Delete" && event.key !== "Tab" && isNaN(parseInt(event.key))) {
+                    alert("Only numeric characters allowed!")
+                    event.preventDefault();
+                }
+            });
+        </script>
     </body>
 </html>
