@@ -258,11 +258,15 @@
             });
 
             const ICInput = document.getElementById("icNumber");
-            ICInput.addEventListener("keydown", function(event) {
-                if (event.key !== "Backspace" && event.key !== "Delete" && event.key !== "Tab" && isNaN(parseInt(event.key))) {
-                    alert("Only numeric characters allowed!")
-                    event.preventDefault();
-                }
+            // ICInput.addEventListener("keydown", function(event) {
+            //     if (event.key !== "Backspace" && event.key !== "Delete" && event.key !== "Tab" && isNaN(parseInt(event.key))) {
+            //         alert("Only numeric characters allowed!")
+            //         event.preventDefault();
+            //     }
+            // });
+            ICInput.addEventListener("input", function() {
+                ICInput.value = ICInput.value.replace(/\D/g, "");
+                // alert('Only numeric characters allowed!');
             });
         </script>
     </body>
