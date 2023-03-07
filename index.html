@@ -250,11 +250,9 @@
 
         <script>
             const phoneNumberInput = document.getElementById("phoneNumber");
-            phoneNumberInput.addEventListener("keydown", function(event) {
-                if (event.key !== "Backspace" && event.key !== "Delete" && event.key !== "Tab" && isNaN(parseInt(event.key))) {
-                    alert("Only numeric characters allowed!")
-                    event.preventDefault();
-                }
+            phoneNumberInput.addEventListener("input", function() {
+                phoneNumberInput.value = phoneNumberInput.value.replace(/\D/g, "");
+                // alert('Only numeric characters allowed!');
             });
 
             const ICInput = document.getElementById("icNumber");
