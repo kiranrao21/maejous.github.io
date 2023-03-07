@@ -46,6 +46,12 @@ h1 {
   margin: 20px 0;
 }
 
+.popup_text{
+  font-size: 2em;
+  color: #fff;
+  font-weight: bold;
+}
+
 .ft-bd {
   font-weight: bold;
 }
